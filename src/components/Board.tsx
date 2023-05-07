@@ -1,6 +1,18 @@
 import React from "react";
 import { useAppSelector } from "../store/hooks";
 import Tile from "./Tile";
+import styled from "styled-components";
+
+interface IBoardDivProps {
+  boardSize: number;
+}
+
+const BoardDiv = styled.div<IBoardDivProps>`
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  width: ${(props) => props.boardSize * 6.25}rem;
+`;
 
 const Board = () => {
   // pre-typed 된 selector와 dispatch 사용
@@ -10,16 +22,16 @@ const Board = () => {
   );
 
   return (
-    <div
-      className="flex flex-wrap rounded-lg"
-      style={{
-        width: `${6.25 * boardSize}rem`,
-      }}
+    <BoardDiv
+      // className="flex flex-wrap rounded-lg"
+      // style={{
+      //   width: `${6.25 * boardSize}rem`,
+      boardSize={boardSize}
     >
       {board.map((element: string, index: number) => (
         <Tile candy={element} key={index} candyId={index} />
       ))}
-    </div>
+    </BoardDiv>
   );
 };
 
