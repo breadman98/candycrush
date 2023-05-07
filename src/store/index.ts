@@ -1,13 +1,19 @@
 import { createSlice, configureStore, PayloadAction } from "@reduxjs/toolkit";
+import { moveBelowReducer } from "./reducers/moveBelow";
+import { dragEndReducer } from "./reducers/dragEndReducer";
 
 interface boardState {
   board: string[];
   boardSize: number;
+  squareBeingDragged: Element | undefined;
+  squareBeingReplaced: Element | undefined;
 }
 
 const initialState: boardState = {
   board: [],
   boardSize: 8,
+  squareBeingDragged: undefined,
+  squareBeingReplaced: undefined,
 };
 
 // interface myState {
@@ -49,6 +55,15 @@ const candyCrushSlice = createSlice({
     updateBoard: (state, action: PayloadAction<string[]>) => {
       state.board = action.payload;
     },
+    dragStart: (state, action: PayloadAction<any>) => {
+      state.squareBeingDragged = action.payload;
+    },
+    dragDrop: (state, action: PayloadAction<any>) => {
+      state.squareBeingReplaced = action.payload;
+    },
+    dragEnd: dragEndReducer,
+
+    moveBelow: moveBelowReducer,
   },
 });
 
@@ -60,9 +75,18 @@ export const store = configureStore({
     candyCrush: candyCrushSlice.reducer,
     //myStateStore: myStateSlice.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
+  // getDefaultMiddleware는 Redux Toolkit에서 제공하는 기본 미들웨어들의 배열을 가져옵니다.
+  // serializableCheck 옵션은 action이 serializable한지 체크하는 기능을 끄기 위한 옵션입니다. 만약 이를 사용하지 않으면,
+  // action 객체가 Immutable하지 않은 경우, 에러가 발생합니다.
+  // getDefaultMiddleware({ serializableCheck: false })와 같이 serializableCheck를 false로 설정하여,
+  // action 객체가 Immutable하지 않아도 에러가 발생하지 않도록 설정할 수 있습니다. 이렇게 설정하는 경우, action 객체가 Immutable하지 않을 경우, 경고 메시지가 출력됩니다.
+  // 만약 Immutable하지 않은 action을 사용해야 하는 경우, 이러한 경고 메시지를 무시하고 action을 사용할 수 있습니다.
 });
 
-export const { updateBoard } = candyCrushSlice.actions;
+export const { updateBoard, moveBelow, dragStart, dragEnd, dragDrop } =
+  candyCrushSlice.actions;
 // export const { testMy } = myStateSlice.actions;
 
 // state와 dispatch 타입추론으로 export

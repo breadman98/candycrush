@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { dragDrop, dragEnd, dragStart } from "../store";
+import { useAppDispatch } from "../store/hooks";
 
 const Tiles = styled.div`
   height: 6rem;
@@ -11,28 +13,39 @@ const Tiles = styled.div`
   border-radius: 0.5rem;
   user-select: none;
   box-shadow: inset 5px 5px 15px #062525, inset -5px -5px 15px #aaaab7bb;
+  @media (max-width: 768px) {
+    height: 3.5rem;
+    width: 3.5rem;
+  }
 `;
 
 const TileImg = styled.img`
   height: 5rem;
   width: 5rem;
+  @media (max-width: 768px) {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
 `;
 
 const Tile = ({ candy, candyId }: { candy: string; candyId: number }) => {
+  const dispatch = useAppDispatch();
+
   return (
-    <Tiles
-      className="h-24 w-24 flex justify-center items-center m-0.5 rounded-lg select-none"
-      style={{
-        boxShadow: "inset 5px 5px 15px #062525, inset -5px -5px 15px #aaaab7bb",
-      }}
-    >
+    <Tiles>
       {candy && (
         <TileImg
           src={candy}
           alt="candy"
-          // className="h-20 w-20"
-          candy-id={candyId}
-        /> // HTML에서는 example-id 형식으로 id값 줘야함
+          candy-id={candyId} // HTML에서는 example-id 형식으로 id값 줘야함
+          draggable={true}
+          onDragStart={(e) => dispatch(dragStart(e.target))}
+          onDragOver={(e) => e.preventDefault()}
+          onDragEnter={(e) => e.preventDefault()}
+          onDragLeave={(e) => e.preventDefault()}
+          onDrop={(e) => dispatch(dragDrop(e.target))}
+          onDragEnd={() => dispatch(dragEnd())}
+        />
       )}
     </Tiles>
   );

@@ -1,7 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./store/hooks";
-import { updateBoard } from "./store";
+import { moveBelow, updateBoard } from "./store";
+
 import { createBoard } from "./utils/createBoard";
 import Board from "./components/Board";
 import styled from "styled-components";
@@ -51,6 +52,7 @@ const App = () => {
       checkForRowOfThree(newBoard, boardSize, generateInvalidMoves(boardSize));
 
       dispatch(updateBoard(newBoard));
+      dispatch(moveBelow());
     }, 150);
     return () => clearInterval(timeout); // useEffect() 훅의 반환 값으로 함수를 지정하면 컴포넌트가 unmount될 때 이 함수가 실행됩니다.
   }, [board, boardSize, dispatch]);
@@ -70,11 +72,13 @@ const App = () => {
   // 이렇게 수정하면, 이전 setTimeout() 함수가 실행되기 전에 현재 setTimeout() 함수가 정리되므로, 이전 setTimeout() 함수와 충돌하는 일이 없어집니다.
 
   return (
-    <BoardContainer
-    /*className="flex items-center justify-center h-screen"*/
-    >
-      <Board />
-    </BoardContainer>
+    <>
+      <BoardContainer
+      /*className="flex items-center justify-center h-screen"*/
+      >
+        <Board />
+      </BoardContainer>
+    </>
   );
 };
 
