@@ -14,4 +14,5 @@ export const candies = [
   candyFive,
   candySix,
   candySeven,
+  // 얘내 타입이 다 string임
 ];

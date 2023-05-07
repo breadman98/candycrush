@@ -9,7 +9,7 @@ const Tile = ({ candy, candyId }: { candy: string; candyId: number }) => {
       }}
     >
       {candy && (
-        <img src={candy} alt="candy" className="h-20 w-20" candy-id={candyId} />
+        <img src={candy} alt="candy" className="h-20 w-20" candy-id={candyId} /> // HTML에서는 example-id 형식으로 id값 줘야함
       )}
     </div>
   );

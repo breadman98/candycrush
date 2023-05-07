@@ -4,19 +4,19 @@ import { useAppDispatch, useAppSelector } from "./store/hooks";
 import { updateBoard } from "./store";
 import { createBoard } from "./utils/createBoard";
 import Board from "./components/Board";
-import styled from "styled-components";
 
 const App = () => {
+  // pre-typed된 selector와 dispatch 사용
+  // useSelector는 store의 state를 인자로 받아옴
   const dispatch = useAppDispatch();
+  const board = useAppSelector(({ candyCrush: { board } }) => board); // state의 board 잡아오기
 
-  const board = useAppSelector(({ candyCrush: { board } }) => board);
   const boardSize = useAppSelector(
-    ({ candyCrush: { boardSize } }) => boardSize
+    ({ candyCrush: { boardSize } }) => boardSize // state의 boardSize 잡아오기
   );
 
   useEffect(() => {
     dispatch(updateBoard(createBoard(boardSize)));
-    // console.log(createBoard(boardSize));
   }, [boardSize, dispatch]);
 
   return (

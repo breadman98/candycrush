@@ -3,9 +3,10 @@ import { useAppSelector } from "../store/hooks";
 import Tile from "./Tile";
 
 const Board = () => {
-  const board = useAppSelector(({ candyCrush: { board } }) => board);
+  // pre-typed 된 selector와 dispatch 사용
+  const board = useAppSelector(({ candyCrush: { board } }) => board); // state의 board 잡아오기
   const boardSize = useAppSelector(
-    ({ candyCrush: { boardSize } }) => boardSize
+    ({ candyCrush: { boardSize } }) => boardSize // state의 boardSize 잡아오기
   );
 
   return (
@@ -15,8 +16,8 @@ const Board = () => {
         width: `${6.25 * boardSize}rem`,
       }}
     >
-      {board.map((candy: string, index: number) => (
-        <Tile candy={candy} key={index} candyId={index} />
+      {board.map((element: string, index: number) => (
+        <Tile candy={element} key={index} candyId={index} />
       ))}
     </div>
   );
