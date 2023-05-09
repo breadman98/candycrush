@@ -13,18 +13,19 @@ const Tiles = styled.div`
   border-radius: 0.5rem;
   user-select: none;
   box-shadow: inset 5px 5px 15px #062525, inset -5px -5px 15px #aaaab7bb;
-  @media (max-width: 768px) {
-    height: 3.5rem;
-    width: 3.5rem;
+
+  @media (max-width: 915px) {
+    height: 3rem;
+    width: 3rem;
   }
 `;
 
 const TileImg = styled.img`
   height: 5rem;
   width: 5rem;
-  @media (max-width: 768px) {
-    height: 2.5rem;
-    width: 2.5rem;
+  @media (max-width: 915px) {
+    height: 2rem;
+    width: 2rem;
   }
 `;
 

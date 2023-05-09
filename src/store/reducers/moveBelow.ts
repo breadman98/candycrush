@@ -35,7 +35,7 @@ export const moveBelowReducer = (
 };
 
 // WritableDraft는 immer 라이브러리에서 제공하는 타입으로, 객체의 프로퍼티를 수정할 때 사용됩니다.
-//  리덕스 툴킷에서는 이 WritableDraft를 이용하여 불변성을 유지하면서 상태를 갱신할 수 있도록 도와줍니다.
+// 리덕스 툴킷에서는 이 WritableDraft를 이용하여 불변성을 유지하면서 상태를 갱신할 수 있도록 도와줍니다.
 
 // 일반적으로, 객체를 수정하려면 해당 객체를 복제하고 수정된 값을 새로운 객체에 할당해야 합니다.
 // 그러나 immer 라이브러리에서 제공하는 produce 함수를 사용하면, 원본 객체를 수정할 수 있습니다. 이 때 WritableDraft 타입이 사용됩니다.
@@ -69,3 +69,15 @@ export const moveBelowReducer = (
 
 // 위 코드에서 updateUser 리듀서에서 WritableDraft<User> 타입을 사용하여 currentUser 객체를 직접 수정할 수 있습니다.
 // 이러한 방식으로 immer와 WritableDraft를 사용하면 상태를 갱신하는 데 있어서 불필요한 복제를 방지할 수 있습니다.
+
+// immer를 사용하지 않고 state 업데이트를 수행하려면, 해당 객체를 직접 수정하는 것이 아니라 새로운 객체를 만들어야 합니다.
+// 예를 들어, `updateUser` reducer의 구현을 다음과 같이 바꿀 수 있습니다.
+
+// ```typescript
+// updateUser: (state, action: PayloadAction<User>) => {
+//   const { name, age } = action.payload;
+//   state.currentUser = { name, age };
+// },
+// ```
+
+// 이렇게 하면 `state.currentUser` 객체를 새로운 객체로 교체하는 것이므로, 이전 객체를 직접 수정하지 않아도 됩니다.

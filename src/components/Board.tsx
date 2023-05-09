@@ -17,7 +17,8 @@ const BoardDiv = styled.div<IBoardDivProps & IisVisible>`
   border-radius: 0.5rem;
   width: ${(props) => props.boardSize * 6.25}rem;
   visibility: ${(props) => (props.isVisible ? "visible" : "hidden")};
-  @media (max-width: 300) {
+
+  @media (max-width: 915px) {
     width: ${(props) => props.boardSize * 3.25}rem;
   }
 `;
@@ -34,7 +35,7 @@ const VisibleButton = styled.button<IisVisible>`
   color: ${(props) => (props.isVisible ? "white" : "red")};
   font-size: 30px;
   @media (max-width: 768px) {
-    font-size: 14px;
+    font-size: 15px;
   }
 `;
 
